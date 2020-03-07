@@ -43,7 +43,30 @@
 // 		return this.deck.pop()
 // 	}
 
-const cards = [
+
+// NOTE -- we can REMOVE THE SHUFFLE FUNCTION
+//that means you need to bring the array (from the HW) back into the game object
+
+class Player {
+	constructor(name) {
+		this.name = name
+		this.hand = [] // will be their current cards per the round they're in
+		this.score = 0 // initialized at 0
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+const game = {
+cards: [
   {
     name: "Bulbasaur",
     damage: 60
@@ -99,17 +122,9 @@ const cards = [
     name: "Weedle", 
     damage: 40
   }
-]
-console.log(cards);							// keep here to make sure this original deck is different from the shuffled deck
-
-const cards2 = []							// making a copy of the array so we can shuffle it -- done
-for(let i = 0; i < cards.length; i++) {		// why cant i put this in the scope of the game? -- ??
-	cards2.push(cards[i])
-}
-
-const game = {
-
+],
 // all the properties go in here!! ALL OF THEM
+// players functions -- 1.
 
 	eggbert: {
 			score: 0,
@@ -120,9 +135,7 @@ const game = {
 			hand: [],
 		},
 	currentCard: [],
-	removedItem: [],
-	dealtCards: [],
-	usedCards: [],
+	removedCards: [],
 	playCardComp: [],
 	playCardEgg: [],
 	deck: [],
@@ -131,37 +144,50 @@ const game = {
 	rounds: 0,
 
 	announceWinner: function () {
-		console.log("someone won");
-
-
+		alert("someone won");
 	},
 
 	getPlayerCard: function () {
-		let getPlayerCard = this.eggbert.hand.splice(0, 1) 	//  CAN'T SEE WHAT CARD THE USER PLAYED.  OT SHOWING UP IN CONSOLE
+		let getPlayerCard = this.eggbert.hand 			 	//  CAN'T SEE WHAT CARD THE USER PLAYED.  OT SHOWING UP IN CONSOLE
 		const userInput = prompt("play a card!", "(1/2/3)") // WANT TO MAKE THIS SHOW THE ACTUAL POKEMON NAME ON THE CARD
 															// WHY IS THIS ASKING FOR 4 QUESTIONS IN THE PROMPTS?
 															/// not actually adding 1 to eggbert's score or to computer's score?
 															// to add values to an array (any of them up there...) 
 															// just write array[0] = "anything"
+															// this is turning the amt of cards to 15 (so that's working, because 
+															// those cards can't be selected again)
 		if(userInput === "1") {
 
 		}
-		console.log("tjhis is pringting the card eggbert played \n", this.playCardEgg);
-		return "whatever the user's input was from the prompt"
+		console.log("this is printing the card eggbert played \n", this.playCardEgg);
+		return "whatever the user's input was from the prompt" 	// what is this return?  going to be the getPlayercard -- but what? 
+																// adding the points to score goes in here?  
 	},
 
-	battle: function () {
-		let playCardComp = this.computer.hand.splice(0, 1) // could use pop too
-		console.log("this is printing the card that computer played \n", playCardComp);
-		const playCardEgg = this.getPlayerCard();				
-		console.log(playCardEgg);
-		if(playCardEgg[1] > playCardComp[1]) {				
-			eggbert.score += 1
-		}
-
+	// battle: function () {
+	// 	let playCardComp = this.computer.hand.splice(0, 1) // could use pop too
+	// 	console.log("this is printing the card that computer played \n", playCardComp);
+	// 	const playCardEgg = this.getPlayerCard();				
+	// 	console.log(playCardEgg);
+	// 	if(this.eggbert.hand > this.computer.hand) { 	// if eggberts hand (first card) is higher in damage power than computer's (same)
+	// 		computer.score += 1							// then, add a point to eggberts score (( cards not going to playCardEgg or comp)
+	// 	}												// nothing happening here!
+	// 	if(this.playCardEgg > this.playCardComp) {				
+	// 		eggbert.score += 1
+	// 		console.log(eggbert.score);
+	// 	}
+	// 	// if(game.eggBertsHand[0]['damage'] < game.computersHand[0]['damage']){
+	// 	// 	alert(`Computer and ${game.computersHand[0]['name']} win round ${game.round}`)
+	// 	// 	game.computersPoints++
+	// 	// }
+	// 	// if(game.eggBertsHand[0]['damage'] === game.computersHand[0]['damage']){
+	// 	// 	alert(`- DRAW - \nNO WINNER`)
+	// 	// }
+	// 			/// might want an alert for whoever won the round?
+	// },
 			//if egg's card that was played, has higher damage than compuyter's card played, 
 			/// add 1 point to score (in egg's array)
-		// do stuff w/ players chosen card 
+			// do stuff w/ players chosen card 
 
 
 			// const playCard = prompt(
@@ -182,72 +208,53 @@ const game = {
 									// USE SPLICE TO REMOVE CARDS FROM EACH PLAYERS HANDS
 									// USE THE NAME OF THE CARD PLAYED
 
- 
-	},
-
 	deal: function() {					
-		let removedItem;											// draw 3 cards give it to another player	
-		for(let i = 0; i < 3; i++) {								// draw 3 cards give it to 1 player, 
-			let removedItem = this.cards2.pop()
-			// let removedItem = cards2[i]
-				this.eggbert.hand.push(removedItem)
-				this.computer.hand.push(removedItem)
-			}
-				this.battle()	
-				console.log("this is removedItem inside deal func\n", this.removedItem);
+		let removedCards;
+		for(let i = 0; i < 3; i++) {	
+			let removedCards = this.cards.pop()
+			this.eggbert.hand.push(removedCards)		// this gives 3 random cards to each player, BUT
+														// doesnt send the cards to removedCards	
+		}
+		for(let j = 0; j < 3; j++) {
+			let removedCards = this.cards.pop()
+			this.computer.hand.push(removedCards)
+		}
+				console.log("this is the removedCards inside deal func\n", this.removedCards);
+				// alert(thew round number, current round
+				// this.battle();
 		},
 
 	shuffle: function() {		
 		let currentCard;
-		for(let i = cards2.length - 1; i > 0; i--) {
+		for(let i = cards.length - 1; i > 0; i--) {
 			let randomNumber = Math.floor(Math.random() * (i + 1))
-			currentCard = cards2[i]
-			cards2[i] = cards2[randomNumber]
-			cards2[randomNumber] = currentCard
+			currentCard = cards[i]
+			cards[i] = cards[randomNumber]
+			cards[randomNumber] = currentCard
 		}
-		this.cards2 = cards2;
-		console.log('cards 2 after shuffling')
+		this.cards = cards;
+		console.log('cards after shuffling')
 		console.log(this.cards2)
 	},
 
 	start: function() {				
-		alert("Pokeman Game!")
+		alert("Pokeman Game! There's 3 rounds. Choose a card to play and try and beat the computer!")
 		this.shuffle();
 		this.deal();
-		this.battle();
-		this.getPlayerCard();
-		this.announceWinner();
+
+		// this.battle();
+		// this.getPlayerCard();
+		// this.announceWinner();
 	}
 }
 	game.start()
 	game.shuffle()
 	game.deal()
+	// game.battle()
+	// game.newRound()
 
 
-
-
-	// deal: function() {				// going to be 3 cards
-	// 								// 
-
-	// }
-
-	// pick: function() {				// pick 1 card from their hand
-	// 								// need a prompt 
-
-	// }
-
-	// showStatus: function() {		// alerts saying, 1. both players' points (scoreboard), 2. cards in the player's hand? 3. cards 
-
-	// }
-
-	// battle: function() {			// all of the compairisons and adding points to the score, adding rounds
-
-	// }
-
-	// end: function() {				// alert showing the winner
-
-
-	// }
+// START -- call: shuffle, 
 
 
 
@@ -256,26 +263,12 @@ const game = {
 
 
 
-// function shuffleCards(array) {							//point is to make a new array with random cards
-// 														//in it (for players to select from), array is parameter
-// 	for(let i = array.length -1; i > 0; i--) {			//randomCards is another array container
-// 		let n = Math.floor(Math.random() * (i + 1));
-// 		let randomCards = array[i];
-// 		array[i] = array[n];
-// 		array[n] = randomCards;
-// 	}
-// }
-// return array;
-// shuffleArray(cards)
 
 
 
-// const drawCard() = {
 
-// }
-// const playCard() = {
 
-// }
+
 
 
 
