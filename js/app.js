@@ -89,11 +89,11 @@ const game = {
 	announceWinner: function () {
 		if(this.rounds <= 3 && (this.eggbert.score > this.computer.score)) {
 			alert("eggbert won that round");
-			this.eggbert.score ++
+			this.eggbert.score += 1
 		} else if
 			(this.eggbert.score < this.computer.score) {
 			alert("computer won round")
-			this.computer.score ++
+			this.computer.score += 1
 		}
 	},
 
@@ -108,15 +108,23 @@ const game = {
 	},
 
 	battle: function () {
-		let playCardComp = this.computer.hand.splice(0, 1)
-		console.log("this is printing the card that computer played \n", playCardComp);
-		const playCardEgg = this.getPlayerCard();				
-		console.log(playCardEgg);
-		if(playCardEgg[1] > playCardComp[1]) {				
+		if(this.computer.hand.damage > this.eggbert.hand.damage) {
+			this.computer.score += 1
+			alert("computer won that round")
+		} else
+			alert("egg won that round!")
 			this.eggbert.score += 1
-		}
-
 	},
+
+	// 	let playCardComp = this.computer.hand.splice(0, 1)
+	// 	console.log("this is printing the card that computer played \n", playCardComp);
+	// 	const playCardEgg = this.getPlayerCard();				
+	// 	console.log(playCardEgg);
+	// 	if(playCardEgg[1] > playCardComp[1]) {				
+	// 		this.eggbert.score += 1
+	// 	}
+
+	// },
 
 	deal: function() {					
 		let removedItem;	
@@ -147,9 +155,9 @@ const game = {
 		alert("Pokeman Game!")
 		this.shuffle();
 		this.deal();
-		this.battle();
-		this.getPlayerCard();
-		this.announceWinner();
+		// this.battle();
+		// this.getPlayerCard();
+		// this.announceWinner();
 	}
 }
 	game.start()
