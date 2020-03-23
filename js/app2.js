@@ -1,163 +1,160 @@
 const game = {
 
-	cards: [
-	  {
-	    name: "Bulbasaur",
-	    damage: 60
-	  }, {
-	    name: "Caterpie",
-	    damage: 40
-	  }, {
-	    name: "Charmander",
-	    damage: 60
-	  }, {
-	    name: "Clefairy",
-	    damage: 50
-	  }, {
-	    name: "Jigglypuff",
-	    damage: 60
-	  }, {
-	    name: "Mankey",
-	    damage: 30
-	  }, {
-	    name: "Meowth",
-	    damage: 60
-	  }, {
-	    name: "Nidoran - female",
-	    damage: 60
-	  }, {
-	    name: "Nidoran - male",
-	    damage: 50
-	  }, {
-	    name: "Oddish",
-	    damage: 40
-	  }, {
-	    name: "Pidgey",
-	    damage: 50
-	  }, {
-	    name: "Pikachu",
-	    damage: 50
-	  }, {
-	    name: "Poliwag",
-	    damage: 50
-	  }, {
-	    name: "Psyduck",
-	    damage: 60
-	  }, {
-	    name: "Rattata",
-	    damage: 30
-	  }, {
-	    name: "Squirtle",
-	    damage: 60
-	  }, {
-	    name: "Vulpix",
-	    damage: 50
-	  }, {
-	    name: "Weedle", 
-	    damage: 40
-	  }
-	],
+    cards: [{
+        name: "Bulbasaur",
+        damage: 60
+    }, {
+        name: "Caterpie",
+        damage: 40
+    }, {
+        name: "Charmander",
+        damage: 60
+    }, {
+        name: "Clefairy",
+        damage: 50
+    }, {
+        name: "Jigglypuff",
+        damage: 60
+    }, {
+        name: "Mankey",
+        damage: 30
+    }, {
+        name: "Meowth",
+        damage: 60
+    }, {
+        name: "Nidoran - female",
+        damage: 60
+    }, {
+        name: "Nidoran - male",
+        damage: 50
+    }, {
+        name: "Oddish",
+        damage: 40
+    }, {
+        name: "Pidgey",
+        damage: 50
+    }, {
+        name: "Pikachu",
+        damage: 50
+    }, {
+        name: "Poliwag",
+        damage: 50
+    }, {
+        name: "Psyduck",
+        damage: 60
+    }, {
+        name: "Rattata",
+        damage: 30
+    }, {
+        name: "Squirtle",
+        damage: 60
+    }, {
+        name: "Vulpix",
+        damage: 50
+    }, {
+        name: "Weedle",
+        damage: 40
+    }],
 
-	eggbertsHand: [],
-	eggbertsPlayedCards : '',
-	eggbertsPoints: 0,
-	computersHand: [],
-	computersPlayedCards: '',
-	computersPoints: 0,
-	round : 1,
+    eggbertsHand: [],
+    eggbertsPlayedCards: '',
+    eggbertsPoints: 0,
+    computersHand: [],
+    computersPlayedCards: '',
+    computersPoints: 0,
+    round: 1,
 
-	deal: () => {
-		for(let i = 0; i < 3; i++){
-			let randomNum = Math.floor(Math.random() * (game.cards.length));
-			let splicedCards = game.cards.splice(randomNum, 1);
-			game.eggbertsHand.push(splicedCards)
+    deal: () => {
+        for (let i = 0; i < 3; i++) {
+            let randomNum = Math.floor(Math.random() * (game.cards.length));
+            let splicedCards = game.cards.splice(randomNum, 1);
+            game.eggbertsHand.push(splicedCards)
 
-		}
-		for(let j = 0; j < 3; j++){
-			let randomNum = Math.floor(Math.random()*(game.cards.length));
-			let splicedCards = game.cards.splice(randomNum, 1);
-			game.computersHand.push(splicedCards)
-		}
-		alert(`round ${game.round}\n begins!`)
-		game.eggbertsTurn()
-	},
-	
-	battle: () => {
-		if(game.eggbertsHand[0]['damage'] > game.computersHand[0]['damage']){
-			alert(`Eggbert wins round!`)
-			game.eggbertsPoints++
-			// console.log(eggbertsHand);
-		}
-		if(game.eggbertsHand[0]['damage'] < game.computersHand[0]['damage']){
-			alert(`Computer wins round!`)
-			game.computersPoints++
-		}
-		if(game.eggbertsHand[0]['damage'] === game.computersHand[0]['damage']){
-			alert(`it's a tie!`)
-		}
-		game.newRound()
+        }
+        for (let j = 0; j < 3; j++) {
+            let randomNum = Math.floor(Math.random() * (game.cards.length));
+            let splicedCards = game.cards.splice(randomNum, 1);
+            game.computersHand.push(splicedCards)
+        }
+        alert(`round ${game.round}\n begins!`)
+        game.eggbertsTurn()
+    },
 
-	},
+    battle: () => {
+        if (game.eggbertsHand[0]['damage'] > game.computersHand[0]['damage']) {
+            alert(`Eggbert wins round!`)
+            game.eggbertsPoints++
+            // console.log(eggbertsHand);
+        }
+        if (game.eggbertsHand[0]['damage'] < game.computersHand[0]['damage']) {
+            alert(`Computer wins round!`)
+            game.computersPoints++
+        }
+        if (game.eggbertsHand[0]['damage'] === game.computersHand[0]['damage']) {
+            alert(`it's a tie!`)
+        }
+        game.newRound()
 
-	eggbertsTurn: () => {
-		let cardsAvail = `Choose a card to play!`
-		for(let i = 0; i < game.eggbertsHand.length; i++){
-			cardsAvail += `\n Pick ${game.eggbertsHand[i][0].name}, Type ${i}`
-		}
-		let cardChoice = prompt(`Choose a card to play ${cardsAvail}`)
-		game.eggbertsPlayedCards = game.eggbertsHand[cardChoice]
-		let usedCards = game.eggbertsHand.splice(cardChoice, 1)
-		game.computersTurn()
-	},
-	
-	computersTurn: () => {
-		let randomNum = Math.floor(Math.random()*(game.computersHand.length));
-		game.computersPlayedCards = game.computersHand[randomNum]
-		let usedCards = game.computersHand.splice(randomNum, 1)
-		game.battle()
-	},
+    },
 
-	newRound: () => {
-		game.round++
-		if(game.round > 3){
-			return game.winner()
-		}
-		alert("new round begins!")
-			game.start()
-			game.clear()
-	},
+    eggbertsTurn: () => {
+        let cardsAvail = `Choose a card to play!`
+        for (let i = 0; i < game.eggbertsHand.length; i++) {
+            cardsAvail += `\n Pick ${game.eggbertsHand[i][0].name}, Type ${i}`
+        }
+        let cardChoice = prompt(`Choose a card to play ${cardsAvail}`)
+        game.eggbertsPlayedCards = game.eggbertsHand[cardChoice]
+        console.log(game.eggbertsPlayedCards); // not showing up
+        let usedCards = game.eggbertsHand.splice(cardChoice, 1)
+        game.computersTurn()
+    },
 
-	winner: () => {
-		if(game.eggbertsPoints > game.computersPoints) {
-			alert(`eggbert wins!`)
-		}
-		if(game.eggbertsPoints < game.computersPoints) {
-			alert(`computer wins!`)
-		}
-		if(game.eggbertsPoints === game.computersPoints) {
-			alert(`tie game... meh!`)
-		}
-	},
+    computersTurn: () => {
+        let randomNum = Math.floor(Math.random() * (game.computersHand.length));
+        game.computersPlayedCards = game.computersHand[randomNum]
+        let usedCards = game.computersHand.splice(randomNum, 1)
+        game.battle()
+    },
 
-	clear: () => {
-		game.eggbertsPlayedCards = ''
-		game.eggbertsHand = []
-		game.computersPlayedCards = ''
-		game.computersHand = []
-		
-	},
+    newRound: () => {
+        game.reset()
+        game.round++
+        if (game.round === 4) {
+            return game.winner()
+        }
+        alert("new round begins!")
+        game.start()
+    },
 
-	start: () => {
-	alert("let's do this!")
-	game.deal()
+    winner: () => {
+        if (game.eggbertsPoints > game.computersPoints) {
+            alert(`eggbert wins!`)
+        }
+        if (game.eggbertsPoints < game.computersPoints) {
+            alert(`computer wins!`)
+        }
+        if (game.eggbertsPoints === game.computersPoints) {
+            alert(`tie game... meh!`)
+        }
+    },
 
-	},
+    reset: () => {
+        game.eggbertsPlayedCards = ''
+        game.eggbertsHand = []
+        game.computersPlayedCards = ''
+        game.computersHand = []
+
+    },
+
+    start: () => {
+        alert("let's do this!")
+        game.deal()
+
+    },
 
 }
 
 game.start()
-
-
 
 
 
@@ -301,11 +298,6 @@ game.start()
 
 // }
 // game.start()
-
-
-
-
-
 
 
 
