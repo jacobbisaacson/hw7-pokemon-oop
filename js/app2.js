@@ -147,6 +147,7 @@ const game = {
 	},
 
 	start: () => {
+	alert("let's do this!")
 	game.deal()
 
 	},
