@@ -69,16 +69,16 @@ const game = {
 	deal: () => {
 		for(let i = 0; i < 3; i++){
 			let randomNum = Math.floor(Math.random() * (game.cards.length));
-			let splicedCards = game.cards.splice(randomNum,1);
+			let splicedCards = game.cards.splice(randomNum, 1);
 			game.eggBertsHand.push(splicedCards)
 
 		}
 		for(let j = 0; j < 3; j++){
 			let randomNum = Math.floor(Math.random()*(game.cards.length));
-			let splicedCards = game.cards.splice(randomNum,1);
+			let splicedCards = game.cards.splice(randomNum, 1);
 			game.computersHand.push(splicedCards)
 		}
-		alert(`round begins!`)
+		alert(`round ${game.round}\n begins!`)
 		game.eggbertsTurn()
 	},
 	
@@ -99,9 +99,9 @@ const game = {
 	},
 
 	eggbertsTurn: () => {
-		let cardsAvail = "Choose a card to play"
+		let cardsAvail = `Choose a card to play!`
 		for(let i = 0; i < game.eggBertsHand.length; i++){
-			cardsAvail = ``
+			cardsAvail += `\n Pick ${game.eggBertsHand[i][0]}, ${i}`
 		}
 		let cardChoice = prompt(`Choose a card to play ${cardsAvail} ("1/2/3)"`)
 		game.eggBertsPlayedCards = game.eggBertsHand[cardChoice]
