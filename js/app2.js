@@ -58,9 +58,9 @@ const game = {
 	  }
 	],
 
-	eggBertsHand: [],
-	eggBertsPlayedCards : '',
-	eggBertsPoints: 0,
+	eggbertsHand: [],
+	eggbertsPlayedCards : '',
+	eggbertsPoints: 0,
 	computersHand: [],
 	computersPlayedCards: '',
 	computersPoints: 0,
@@ -70,7 +70,7 @@ const game = {
 		for(let i = 0; i < 3; i++){
 			let randomNum = Math.floor(Math.random() * (game.cards.length));
 			let splicedCards = game.cards.splice(randomNum, 1);
-			game.eggBertsHand.push(splicedCards)
+			game.eggbertsHand.push(splicedCards)
 
 		}
 		for(let j = 0; j < 3; j++){
@@ -83,15 +83,16 @@ const game = {
 	},
 	
 	battle: () => {
-		if(game.eggBertsHand[0]['damage'] > game.computersHand[0]['damage']){
+		if(game.eggbertsHand[0]['damage'] > game.computersHand[0]['damage']){
 			alert(`Eggbert wins round!`)
-			game.eggBertsPoints++
+			game.eggbertsPoints++
+			// console.log(eggbertsHand);
 		}
-		if(game.eggBertsHand[0]['damage'] < game.computersHand[0]['damage']){
+		if(game.eggbertsHand[0]['damage'] < game.computersHand[0]['damage']){
 			alert(`Computer wins round!`)
 			game.computersPoints++
 		}
-		if(game.eggBertsHand[0]['damage'] === game.computersHand[0]['damage']){
+		if(game.eggbertsHand[0]['damage'] === game.computersHand[0]['damage']){
 			alert(`it's a tie!`)
 		}
 		game.newRound()
@@ -100,12 +101,12 @@ const game = {
 
 	eggbertsTurn: () => {
 		let cardsAvail = `Choose a card to play!`
-		for(let i = 0; i < game.eggBertsHand.length; i++){
-			cardsAvail += `\n Pick ${game.eggBertsHand[i][0]}, ${i}`
+		for(let i = 0; i < game.eggbertsHand.length; i++){
+			cardsAvail += `\n Pick ${game.eggbertsHand[i][0].name}, Type ${i}`
 		}
-		let cardChoice = prompt(`Choose a card to play ${cardsAvail} ("1/2/3)"`)
-		game.eggBertsPlayedCards = game.eggBertsHand[cardChoice]
-		let usedCards = game.eggBertsHand.splice(cardChoice, 1)
+		let cardChoice = prompt(`Choose a card to play ${cardsAvail}`)
+		game.eggbertsPlayedCards = game.eggbertsHand[cardChoice]
+		let usedCards = game.eggbertsHand.splice(cardChoice, 1)
 		game.computersTurn()
 	},
 	
@@ -127,20 +128,20 @@ const game = {
 	},
 
 	winner: () => {
-		if(game.eggBertsPoints > game.computersPoints) {
+		if(game.eggbertsPoints > game.computersPoints) {
 			alert(`eggbert wins!`)
 		}
-		if(game.eggBertsPoints < game.computersPoints) {
+		if(game.eggbertsPoints < game.computersPoints) {
 			alert(`computer wins!`)
 		}
-		if(game.eggBertsPoints === game.computersPoints) {
+		if(game.eggbertsPoints === game.computersPoints) {
 			alert(`tie game... meh!`)
 		}
 	},
 
 	clear: () => {
-		game.eggBertsPlayedCards = ''
-		game.eggBertsHand = []
+		game.eggbertsPlayedCards = ''
+		game.eggbertsHand = []
 		game.computersPlayedCards = ''
 		game.computersHand = []
 		
